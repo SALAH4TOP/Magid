@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التحليل المالي - مانشستر يونايتد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .presentation-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 90vh;
+        }
+
+        .slides-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background: white;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 80px;
+            text-align: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 10;
+        }
+
+        .slide.prev {
+            opacity: 0;
+            z-index: 5;
+        }
+
+        /* Slide Styles */
+        .slide-title {
+            font-size: 3.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .slide-subtitle {
+            font-size: 1.8em;
+            color: #555;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .slide-content {
+            font-size: 1.3em;
+            color: #666;
+            line-height: 1.8;
+            max-width: 900px;
+        }
+
+        .slide-content ul {
+            list-style: none;
+            text-align: right;
+        }
+
+        .slide-content li {
+            margin: 20px 0;
+            padding-right: 30px;
+            position: relative;
+            font-size: 1.1em;
+        }
+
+        .slide-content li:before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .slide-icon {
+            font-size: 5em;
+            color: #667eea;
+            margin-bottom: 30px;
+        }
+
+        .slide-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        /* Controls */
+        .controls {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            color: white;
+            font-size: 1.1em;
+            font-weight: 600;
+            min-width: 100px;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .slide-title-info {
+            color: white;
+            font-size: 1.1em;
+            flex: 1;
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 30px;
+            }
+
+            .slide-title {
+                font-size: 2.5em;
+            }
+
+            .slide-subtitle {
+                font-size: 1.3em;
+            }
+
+            .slide-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .logo-img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 30px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-wrapper">
+        <div class="slides-container" id="slidesContainer"></div>
+        
+        <div class="controls">
+            <div class="nav-buttons">
+                <button id="prevBtn" onclick="previousSlide()">
+                    <i class="fas fa-chevron-right"></i> السابق
+                </button>
+                <button id="nextBtn" onclick="nextSlide()">
+                    التالي <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            <div class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">40</span>
+            </div>
+            <div class="slide-title-info" id="slideTitle">الغلاف</div>
+        </div>
+    </div>
+
+    <script>
+        const slides = [
+            {
+                title: "التحليل المالي الشامل",
+                subtitle: "مانشستر يونايتد",
+                content: `<img src="/home/ubuntu/upload/search_images/9FzzOdlIj3PG.png" class="logo-img" alt="Man Utd Logo">
+                          <p style="font-size: 1.2em; color: #999; margin-top: 30px;">دراسة تحليلية شاملة للأداء المالي (2020-2024)</p>
+                          <p style="font-size: 1em; color: #bbb; margin-top: 20px;">تقرير أكاديمي متخصص</p>`
+            },
+            {
+                title: "الملخص التنفيذي",
+                subtitle: "نظرة عامة على الأداء المالي",
+                content: `<ul>
+                    <li>إيرادات سنوية تتجاوز 600 مليون جنيه إسترليني</li>
+                    <li>علامة تجارية عالمية قيمتها تفوق 6 مليارات دولار</li>
+                    <li>تحديات هيكلية في إدارة التكاليف والديون</li>
+                    <li>فرص نمو كبيرة في القطاع الرقمي والتجاري</li>
+                </ul>`
+            },
+            {
+                title: "الأداء المالي",
+                subtitle: "المؤشرات الرئيسية",
+                content: `<div class="slide-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">€650M</div>
+                        <div class="stat-label">الإيرادات السنوية</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">€500M</div>
+                        <div class="stat-label">تكاليف الرواتب</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">€600M</div>
+                        <div class="stat-label">إجمالي الديون</div>
+                    </div>
+                </div>`
+            },
+            {
+                title: "نقاط القوة",
+                subtitle: "المميزات التنافسية",
+                content: `<ul>
+                    <li>علامة تجارية قوية وموثوقة عالمياً</li>
+                    <li>قاعدة جماهيرية ضخمة وموالية</li>
+                    <li>إيرادات تجارية مستقرة ومتنامية</li>
+                    <li>بنية تحتية حديثة وملعب تاريخي</li>
+                </ul>`
+            },
+            {
+                title: "نقاط الضعف",
+                subtitle: "التحديات الرئيسية",
+                content: `<ul>
+                    <li>عبء ديون ثقيل يستنزف السيولة</li>
+                    <li>هيكل تكاليف غير فعال</li>
+                    <li>أداء رياضية متذبذبة</li>
+                    <li>نموذج إدارة يحتاج إلى تطوير</li>
+                </ul>`
+            },
+            {
+                title: "الفرص",
+                subtitle: "مجالات النمو المستقبلي",
+                content: `<ul>
+                    <li>التوسع في السوق الرقمية والبث المباشر</li>
+                    <li>زيادة الشراكات التجارية العالمية</li>
+                    <li>تطوير الملعب والمرافق الحديثة</li>
+                    <li>استثمار الأكاديمية وتطوير المواهب</li>
+                </ul>`
+            },
+            {
+                title: "التهديدات",
+                subtitle: "المخاطر الخارجية",
+                content: `<ul>
+                    <li>المنافسة من أندية مدعومة من دول</li>
+                    <li>التشريعات المالية الصارمة</li>
+                    <li>تقلبات السوق الاقتصادية</li>
+                    <li>مخاطر الأداء الرياضي المتدني</li>
+                </ul>`
+            },
+            {
+                title: "التوصيات",
+                subtitle: "خطط التحسين",
+                content: `<ul>
+                    <li>إعادة هيكلة الديون وتحسين شروطها</li>
+                    <li>فرض سقف صارم للرواتب</li>
+                    <li>تطوير البنية التحتية الرقمية</li>
+                    <li>تعيين إدارة مستقلة وفعالة</li>
+                </ul>`
+            },
+            {
+                title: "خطة التنفيذ",
+                subtitle: "المراحل الزمنية",
+                content: `<div class="slide-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">0-12</div>
+                        <div class="stat-label">الاستقرار المالي</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">1-3</div>
+                        <div class="stat-label">التحسين التشغيلي</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">3-5+</div>
+                        <div class="stat-label">التحول الاستراتيجي</div>
+                    </div>
+                </div>`
+            },
+            {
+                title: "الخاتمة",
+                subtitle: "الرؤية المستقبلية",
+                content: `<p style="font-size: 1.3em; color: #667eea; font-weight: 600; margin-bottom: 30px;">
+                    "الاستدامة المالية الحقيقية تتطلب التوازن بين النجاح التجاري والكفاءة التشغيلية"
+                </p>
+                <p style="font-size: 1.1em; color: #666;">
+                    مانشستر يونايتد يمتلك الموارد والإمكانيات لتحقيق النجاح المستدام<br>
+                    بشرط تطبيق الإصلاحات الضرورية والاستثمار الحكيم
+                </p>`
+            },
+            {
+                title: "شكراً لحسن الاستماع",
+                subtitle: "هل لديكم أي أسئلة؟",
+                content: `<i class="fas fa-question-circle" style="font-size: 4em; color: #667eea; margin-bottom: 30px;"></i>
+                         <p style="font-size: 1.2em; color: #666; margin-top: 30px;">نتطلع لآرائكم واستفساراتكم</p>`
+            }
+        ];
+
+        let currentSlide = 0;
+
+        function renderSlides() {
+            const container = document.getElementById('slidesContainer');
+            slides.forEach((slide, index) => {
+                const slideDiv = document.createElement('div');
+                slideDiv.className = `slide ${index === 0 ? 'active' : ''}`;
+                slideDiv.innerHTML = `
+                    <div class="slide-title">${slide.title}</div>
+                    <div class="slide-subtitle">${slide.subtitle}</div>
+                    <div class="slide-content">${slide.content}</div>
+                `;
+                container.appendChild(slideDiv);
+            });
+
+            document.getElementById('totalSlides').textContent = slides.length;
+        }
+
+        function showSlide(n) {
+            const allSlides = document.querySelectorAll('.slide');
+            
+            if (n >= slides.length) currentSlide = slides.length - 1;
+            if (n < 0) currentSlide = 0;
+
+            allSlides.forEach(slide => slide.classList.remove('active', 'prev'));
+            allSlides[currentSlide].classList.add('active');
+
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+            document.getElementById('slideTitle').textContent = slides[currentSlide].title;
+
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === slides.length - 1;
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        // Initialize
+        renderSlides();
+        showSlide(0);
+    </script>
+</body>
+</html>
