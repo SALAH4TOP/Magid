@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التحليل المالي الشامل - مانشستر يونايتد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; width: 100%; }
+        body { font-family: 'Roboto', sans-serif; background-color: #000; }
+        
+        .presentation-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .slides-wrapper {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            overflow-y: auto;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            z-index: 10;
+        }
+        
+        .slide-content {
+            width: 1280px;
+            min-height: 720px;
+            background: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+        }
+        
+        .controls {
+            background-color: #1A1A1A;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            border-top: 2px solid #DA291C;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        button {
+            background-color: #DA291C;
+            color: #FFF;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        button:hover {
+            background-color: #B01F15;
+        }
+        
+        button:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+        
+        .slide-counter {
+            color: #FFF;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            min-width: 150px;
+            text-align: center;
+        }
+        
+        .slide-info {
+            color: #DA291C;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            flex: 1;
+        }
+        
+        .fullscreen-btn {
+            background-color: #1A1A1A;
+            border: 2px solid #DA291C;
+            color: #DA291C;
+            padding: 10px 20px;
+        }
+        
+        .fullscreen-btn:hover {
+            background-color: #DA291C;
+            color: #FFF;
+        }
+        
+        /* Header Styling */
+        .header {
+            width: 100%;
+            height: 100px;
+            background-color: #1A1A1A;
+            display: flex;
+            align-items: center;
+            padding: 0 60px;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background-color: #DA291C;
+        }
+        
+        .header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+        
+        /* Keyboard shortcuts hint */
+        .shortcuts-hint {
+            color: #999;
+            font-size: 12px;
+            margin-left: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slides-wrapper" id="slidesWrapper"></div>
+        
+        <div class="controls">
+            <div class="nav-buttons">
+                <button id="prevBtn" onclick="previousSlide()">← السابق</button>
+                <button id="nextBtn" onclick="nextSlide()">التالي →</button>
+            </div>
+            <div class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">40</span>
+            </div>
+            <div class="slide-info" id="slideTitle">الغلاف</div>
+            <button class="fullscreen-btn" onclick="toggleFullscreen()" title="ملء الشاشة">
+                <i class="fas fa-expand"></i> ملء الشاشة
+            </button>
+            <div class="shortcuts-hint">
+                استخدم ← → أو مفاتيح الأسهم للتنقل
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = [];
+        
+        // تعريف جميع الشرائح
+        const slidesData = [
+            {
+                title: "الغلاف",
+                html: `
+                    <div class="header">
+                        <h1>التحليل المالي الشامل</h1>
+                    </div>
+                    <div style="flex: 1; padding: 100px 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                        <h2 style="font-family: 'Montserrat', sans-serif; font-size: 48px; color: #1A1A1A; margin-bottom: 20px;">مانشستر يونايتد</h2>
+                        <p style="font-size: 28px; color: #DA291C; margin-bottom: 40px; font-weight: 700;">دراسة تحليلية شاملة للأداء المالي (2020-2024)</p>
+                        <img src="/home/ubuntu/upload/search_images/9FzzOdlIj3PG.png" style="width: 200px; height: 200px; object-fit: contain; margin-bottom: 40px;">
+                        <p style="font-size: 20px; color: #555;">تقرير أكاديمي متخصص</p>
+                        <p style="font-size: 18px; color: #999; margin-top: 20px;">2024 - 2025</p>
+                    </div>
+                `
+            },
+            {
+                title: "المحتويات",
+                html: `
+                    <div class="header"><h1>المحتويات</h1></div>
+                    <div style="flex: 1; padding: 50px 80px; display: flex; flex-direction: column; justify-content: center;">
+                        <div style="columns: 2; column-gap: 60px; font-size: 18px; line-height: 2.5; color: #444;">
+                            <div>1. الملخص التنفيذي</div>
+                            <div>2. المقدمة العامة</div>
+                            <div>3. كرة القدم في بريطانيا</div>
+                            <div>4. التطور التاريخي</div>
+                            <div>5. الدور الحكومي والخاص</div>
+                            <div>6. الأثر المجتمعي والاقتصادي</div>
+                            <div>7. نادي مانشستر يونايتد: النشأة والتاريخ</div>
+                            <div>8. الإنجازات والقيم</div>
+                            <div>9. الأهمية المحلية والعالمية</div>
+                            <div>10. الإدارة المالية</div>
+                            <div>11. البيانات والمصادر</div>
+                            <div>12. الجداول المالية الأساسية</div>
+                            <div>13. مؤشرات الأداء الرئيسية</div>
+                            <div>14. تحليل الإيرادات</div>
+                            <div>15. تحليل الربحية</div>
+                            <div>16. تحليل التدفقات النقدية</div>
+                            <div>17. تحليل الميزانية العمومية</div>
+                            <div>18. التوصيات والخاتمة</div>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+        
+        // إضافة باقي الشرائح من الملفات المحفوظة
+        const slideFiles = [
+            { title: "الملخص التنفيذي", file: "/home/ubuntu/magid_project_v2/slide_04_summary.html" },
+            { title: "المقدمة", file: "/home/ubuntu/magid_project_v2/slide_05_intro.html" },
+            { title: "كرة القدم في بريطانيا", file: "/home/ubuntu/magid_project_v2/slide_06_football_uk.html" },
+            { title: "التطور التاريخي", file: "/home/ubuntu/magid_project_v2/slide_07_historical.html" },
+            { title: "الدور الحكومي والخاص", file: "/home/ubuntu/magid_project_v2/slide_08_government.html" },
+            { title: "الأثر المجتمعي", file: "/home/ubuntu/magid_project_v2/slide_09_impact.html" },
+            { title: "تاريخ مانشستر يونايتد", file: "/home/ubuntu/magid_project_v2/slide_10_mufc_history.html" },
+            { title: "الإنجازات والقيم", file: "/home/ubuntu/magid_project_v2/slide_11_achievements.html" },
+            { title: "الأهمية المحلية والعالمية", file: "/home/ubuntu/magid_project_v2/slide_12_importance.html" },
+            { title: "الإدارة المالية", file: "/home/ubuntu/magid_project_v2/slide_13_financial_mgmt.html" },
+            { title: "مراجع الأدبيات", file: "/home/ubuntu/magid_project_v2/slide_14_literature.html" },
+            { title: "البيانات والمصادر", file: "/home/ubuntu/magid_project_v2/slide_15_data_sources.html" },
+            { title: "الجداول المالية", file: "/home/ubuntu/magid_project_v2/slide_16_financial_tables.html" },
+            { title: "مؤشرات الأداء الرئيسية", file: "/home/ubuntu/magid_project_v2/slide_17_kpi.html" },
+            { title: "تحليل الإيرادات", file: "/home/ubuntu/magid_project_v2/slide_18_revenue_analysis.html" },
+            { title: "تحليل الربحية", file: "/home/ubuntu/magid_project_v2/slide_19_profitability.html" },
+            { title: "تحليل التدفقات النقدية", file: "/home/ubuntu/magid_project_v2/slide_20_cashflow.html" },
+            { title: "تحليل الميزانية العمومية", file: "/home/ubuntu/magid_project_v2/slide_21_balance_sheet.html" },
+            { title: "تحليل الديون", file: "/home/ubuntu/magid_project_v2/slide_22_debt_analysis.html" },
+            { title: "النسب المالية", file: "/home/ubuntu/magid_project_v2/slide_23_ratios.html" },
+            { title: "الرسوم البيانية - الإيرادات والأرباح", file: "/home/ubuntu/magid_project_v2/slide_24_charts_1.html" },
+            { title: "الرسوم البيانية - التدفقات والديون", file: "/home/ubuntu/magid_project_v2/slide_25_charts_2.html" },
+            { title: "الرسوم البيانية - النسب المالية", file: "/home/ubuntu/magid_project_v2/slide_26_charts_3.html" },
+            { title: "نقاط القوة", file: "/home/ubuntu/magid_project_v2/slide_27_strengths.html" },
+            { title: "نقاط الضعف", file: "/home/ubuntu/magid_project_v2/slide_28_weaknesses.html" },
+            { title: "الفرص", file: "/home/ubuntu/magid_project_v2/slide_29_opportunities.html" },
+            { title: "التهديدات", file: "/home/ubuntu/magid_project_v2/slide_30_threats.html" },
+            { title: "أبرز الملاحظات", file: "/home/ubuntu/magid_project_v2/slide_31_key_findings.html" },
+            { title: "الاستنتاجات", file: "/home/ubuntu/magid_project_v2/slide_32_conclusions.html" },
+            { title: "التوصيات - المحور المالي", file: "/home/ubuntu/magid_project_v2/slide_33_recommendations_1.html" },
+            { title: "التوصيات - محور الاستثمار", file: "/home/ubuntu/magid_project_v2/slide_34_recommendations_2.html" },
+            { title: "التوصيات - الحوكمة والشفافية", file: "/home/ubuntu/magid_project_v2/slide_35_recommendations_3.html" },
+            { title: "الرؤية الاستراتيجية", file: "/home/ubuntu/magid_project_v2/slide_36_strategic_vision.html" },
+            { title: "خطة التنفيذ", file: "/home/ubuntu/magid_project_v2/slide_37_implementation.html" },
+            { title: "المراجع", file: "/home/ubuntu/magid_project_v2/slide_38_references.html" },
+            { title: "التخليص والخاتمة", file: "/home/ubuntu/magid_project_v2/slide_39_summary_conclusion.html" },
+            { title: "شكراً لحسن الاستماع", file: "/home/ubuntu/magid_project_v2/slide_40_thank_you.html" }
+        ];
+        
+        // تحميل الشرائح
+        async function loadSlides() {
+            // إضافة الشرائح الأولى
+            slides.push(...slidesData);
+            
+            // تحميل باقي الشرائح من الملفات
+            for (const slide of slideFiles) {
+                try {
+                    const response = await fetch(slide.file);
+                    const html = await response.text();
+                    slides.push({ title: slide.title, html: html });
+                } catch (e) {
+                    console.log(`تعذر تحميل الشريحة: ${slide.title}`);
+                }
+            }
+            
+            // تحديث العدد الكلي
+            document.getElementById('totalSlides').textContent = slides.length;
+            
+            // عرض الشريحة الأولى
+            showSlide(0);
+        }
+        
+        function showSlide(n) {
+            if (n >= slides.length) currentSlide = slides.length - 1;
+            if (n < 0) currentSlide = 0;
+            
+            const wrapper = document.getElementById('slidesWrapper');
+            wrapper.innerHTML = `<div class="slide active"><div class="slide-content">${slides[currentSlide].html}</div></div>`;
+            
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+            document.getElementById('slideTitle').textContent = slides[currentSlide].title;
+            
+            // تحديث حالة الأزرار
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === slides.length - 1;
+        }
+        
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+        
+        function previousSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+        
+        function toggleFullscreen() {
+            const elem = document.documentElement;
+            if (!document.fullscreenElement) {
+                elem.requestFullscreen().catch(err => {
+                    alert(`Error: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+        
+        // التنقل بلوحة المفاتيح
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+        
+        // تحميل الشرائح عند تحميل الصفحة
+        window.addEventListener('load', loadSlides);
+    </script>
+</body>
+</html>
