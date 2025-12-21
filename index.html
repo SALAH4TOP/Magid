@@ -1,450 +1,600 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>التحليل المالي - مانشستر يونايتد</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>خريطة مواقع آلات التصوير المركزية</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Cairo', 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
             padding: 20px;
-        }
-
-        .presentation-wrapper {
-            width: 100%;
-            max-width: 1200px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 90vh;
-        }
-
-        .slides-container {
-            flex: 1;
-            position: relative;
-            overflow: hidden;
-            background: white;
-        }
-
-        .slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 60px 80px;
-            text-align: center;
-        }
-
-        .slide.active {
-            opacity: 1;
-            z-index: 10;
-        }
-
-        .slide.prev {
-            opacity: 0;
-            z-index: 5;
-        }
-
-        /* Slide Styles */
-        .slide-title {
-            font-size: 3.5em;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .slide-subtitle {
-            font-size: 1.8em;
-            color: #555;
-            margin-bottom: 40px;
-            font-weight: 300;
-        }
-
-        .slide-content {
-            font-size: 1.3em;
-            color: #666;
+            direction: rtl;
             line-height: 1.8;
-            max-width: 900px;
         }
-
-        .slide-content ul {
-            list-style: none;
-            text-align: right;
+        .email-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
-        .slide-content li {
-            margin: 20px 0;
-            padding-right: 30px;
-            position: relative;
-            font-size: 1.1em;
-        }
-
-        .slide-content li:before {
-            content: "✓";
-            position: absolute;
-            right: 0;
-            color: #667eea;
-            font-weight: bold;
-            font-size: 1.3em;
-        }
-
-        .slide-icon {
-            font-size: 5em;
-            color: #667eea;
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #2c5aa0;
+            padding-bottom: 20px;
             margin-bottom: 30px;
         }
-
-        .slide-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 40px;
-            width: 100%;
-        }
-
-        .stat-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .logo-placeholder {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #2c5aa0 0%, #1e3a5f 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
             color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
-
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: 700;
-            margin-bottom: 10px;
+        .header h1 {
+            color: #2c5aa0;
+            margin: 0 0 10px 0;
+            font-size: 26px;
         }
-
-        .stat-label {
-            font-size: 1em;
+        .header p {
+            color: #666;
+            margin: 5px 0;
+            font-size: 15px;
+        }
+        .greeting {
+            margin-bottom: 25px;
+            color: #333;
+            font-size: 15px;
+        }
+        .greeting p {
+            margin: 10px 0;
+        }
+        .section-title {
+            background-color: #2c5aa0;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            margin: 30px 0 20px 0;
+            font-size: 19px;
+            font-weight: bold;
+        }
+        .printer-info {
+            background: #f8f9fa;
+            border-right: 4px solid #2c5aa0;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .printer-info.color {
+            border-right-color: #ff6b6b;
+            background: #fff9f0;
+        }
+        .printer-info.upcoming {
+            border-right-color: #ff9800;
+            background: #fff8e1;
             opacity: 0.9;
         }
-
-        /* Controls */
-        .controls {
+        .printer-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #2c5aa0;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .printer-info.color .printer-title {
+            color: #ff6b6b;
+        }
+        .printer-info.upcoming .printer-title {
+            color: #ff9800;
+        }
+        .printer-icon {
+            font-size: 24px;
+            margin-left: 10px;
+        }
+        .printer-details {
+            font-size: 14px;
+            color: #555;
+            margin: 5px 0;
+        }
+        .feature-list {
+            margin-top: 10px;
+            padding-right: 20px;
+        }
+        .feature-list li {
+            margin: 5px 0;
+            color: #666;
+            font-size: 13px;
+        }
+        .info-box {
+            background-color: #e3f2fd;
+            border: 2px solid #2196f3;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+        .info-box h3 {
+            color: #1976d2;
+            margin-top: 0;
+            font-size: 18px;
+        }
+        .info-box ol {
+            margin: 10px 0;
+            padding-right: 25px;
+        }
+        .info-box li {
+            margin: 10px 0;
+            color: #333;
+            font-size: 14px;
+        }
+        .warning-box {
+            background-color: #fff3cd;
+            border-right: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .warning-box h4 {
+            color: #856404;
+            margin-top: 0;
+            font-size: 16px;
+        }
+        .summary-box {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 25px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
-        }
-
-        button {
-            background: white;
-            color: #667eea;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        button:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .slide-counter {
             color: white;
-            font-size: 1.1em;
-            font-weight: 600;
-            min-width: 100px;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
             text-align: center;
-            font-family: 'Poppins', sans-serif;
         }
-
-        .slide-title-info {
-            color: white;
-            font-size: 1.1em;
-            flex: 1;
-            text-align: right;
-            font-family: 'Cairo', sans-serif;
+        .summary-box h3 {
+            margin: 0 0 15px 0;
+            font-size: 20px;
         }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .slide {
-                padding: 40px 30px;
-            }
-
-            .slide-title {
-                font-size: 2.5em;
-            }
-
-            .slide-subtitle {
-                font-size: 1.3em;
-            }
-
-            .slide-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .controls {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .nav-buttons {
-                width: 100%;
-                justify-content: center;
-            }
+        .summary-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
         }
-
-        .logo-img {
-            width: 150px;
-            height: 150px;
-            object-fit: contain;
-            margin-bottom: 30px;
+        .stat-item {
+            text-align: center;
         }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            display: block;
+        }
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .signature {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            color: #333;
+            font-size: 14px;
+        }
+        .signature p {
+            margin: 8px 0;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+        }
+        .diagram-image {
+            width: 100%;
+            max-width: 700px;
+            margin: 20px auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        @media print {
+            body {
+                background-color: white;
+            }
+            .email-container {
+                box-shadow: none;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="presentation-wrapper">
-        <div class="slides-container" id="slidesContainer"></div>
-        
-        <div class="controls">
-            <div class="nav-buttons">
-                <button id="prevBtn" onclick="previousSlide()">
-                    <i class="fas fa-chevron-right"></i> السابق
-                </button>
-                <button id="nextBtn" onclick="nextSlide()">
-                    التالي <i class="fas fa-chevron-left"></i>
-                </button>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-placeholder">🏫</div>
+            <h1>خريطة مواقع آلات التصوير المركزية</h1>
+            <p><strong>مدارس الفيصلية الأهلية - جدة</strong></p>
+            <p>إدارة الأنظمة وتقنية المعلومات</p>
+        </div>
+
+        <!-- Greeting -->
+        <div class="greeting">
+            <p><strong>بسم الله الرحمن الرحيم</strong></p>
+            <p><strong>السلام عليكم ورحمة الله وبركاته،</strong></p>
+            <p>تحية طيبة وبعد،</p>
+            <p>يسعدنا أن نضع بين أيديكم الخريطة الشاملة لمواقع آلات التصوير المركزية المتاحة في مختلف أقسام المدارس، والتي تم تجهيزها لخدمة جميع المنسوبين في المواقع المحددة.</p>
+        </div>
+
+        <!-- Summary Statistics -->
+        <div class="summary-box">
+            <h3>📊 إحصائيات الطابعات المركزية</h3>
+            <div class="summary-stats">
+                <div class="stat-item">
+                    <span class="stat-number">11</span>
+                    <span class="stat-label">إجمالي الطابعات</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">طابعات عادية</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">طابعات ملونة</span>
+                </div>
             </div>
-            <div class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">40</span>
+        </div>
+
+        <!-- Branch Al-Falah -->
+        <div class="section-title">🏢 فرع الفلاح (7 طابعات)</div>
+
+        <div class="printer-info">
+            <div class="printer-title">
+                <span class="printer-icon">🖨️</span>
+                قسم الثانوي بنات
             </div>
-            <div class="slide-title-info" id="slideTitle">الغلاف</div>
+            <div class="printer-details">📍 <strong>الموقع:</strong> مبنى الثانوي بنات - الدور الأرضي</div>
+            <ul class="feature-list">
+                <li>✓ طباعة مشتركة عبر الشبكة المحلية</li>
+                <li>✓ منفذ USB للطباعة المباشرة</li>
+                <li>✓ خدمة التصوير والنسخ الورقي</li>
+            </ul>
+        </div>
+
+        <div class="printer-info color">
+            <div class="printer-title">
+                <span class="printer-icon">🎨</span>
+                قسم المتوسط بنات (طابعة ملونة)
+            </div>
+            <div class="printer-details">📍 <strong>الموقع:</strong> مبنى المتوسط بنات - الدور الأرضي</div>
+            <ul class="feature-list">
+                <li>✓ طباعة ملونة عبر الشبكة المحلية</li>
+                <li>✓ منفذ USB للطباعة المباشرة</li>
+                <li>✓ خدمة التصوير والنسخ الملون</li>
+            </ul>
+        </div>
+
+        <div class="printer-info color">
+            <div class="printer-title">
+                <span class="printer-icon">🎨</span>
+                قسم المتوسط بنين (طابعة ملونة)
+            </div>
+            <div class="printer-details">📍 <strong>الموقع:</strong> مبنى المتوسط بنين - الدور الأرضي</div>
+            <ul class="feature-list">
+                <li>✓ طباعة ملونة عبر الشبكة المحلية</li>
+                <li>✓ منفذ USB للطباعة المباشرة</li>
+                <li>✓ خدمة التصوير والنسخ الملون</li>
+            </ul>
+        </div>
+
+        <div class="printer-info">
+            <div class="printer-title">
+                <span class="printer-icon">🖨️</span>
+                قسم الثانوي بنين
+            </div>
+            <div class="printer-details">📍 <strong>الموقع:</strong> مبنى الثانوي بنين - الدور الأرضي</div>
+            <ul class="feature-list">
+                <li>✓ طباعة مشتركة عبر الشبكة المحلية</li>
+                <li>✓ منفذ USB للطباعة المباشرة</li>
+                <li>✓ خدمة التصوير والنسخ الورقي</li>
+            </ul>
+        </div>
+
+        <div class="printer-info">
+            <div class="printer-title">
+                <span class="printer-icon">🖨️</span>
+                قسم الدولي بنات
+            </div>
+            <div class="printer-details">📍 <strong>الموقع:</strong> مبنى الدولي بنات - الدور الأرضي</div>
+            <ul class="feature-list">
+                <li>✓ طباعة مشتركة عبر الشبكة المحلية</li>
+                <li>✓ منفذ USB للطباعة المباشرة</li>
+                <li>✓ خدمة التصوير والنسخ الورقي</li>
+            </ul>
+        </div>
+
+        <div class="printer-info">
+            <div class="printer-title">
+                <span class="printer-icon">🖨️</span>
+                قسم الدولي بنين
+            </div>
+            <div class="printer-details">📍 <strong>الموقع:</strong> مبنى الدولي بنين - الدور الأرضي</div>
+            <ul class="feature-list">
+                <li>✓ طباعة مشتركة عبر الشبكة المحلية</li>
+                <li>✓ منفذ USB للطباعة المباشرة</li>
+                <li>✓ خدمة التصوير والنسخ الورقي</li>
+            </ul>
+        </div>
+
+        <div class="printer-info">
+            <div class="printer-title">
+                <span class="printer-icon">🖨️</span>
+                قسم التربية الخاصة بنين ابتدائي
+            </div>
+            <div class="printer-details">📍 <strong>الموقع:</strong> مبنى التربية الخاصة - الدور الأرضي</div>
+            <ul class="feature-list">
+                <li>✓ طباعة مشتركة عبر الشبكة المحلية</li>
+                <li>✓ منفذ USB للطباعة المباشرة</li>
+                <li>✓ خدمة التصوير والنسخ الورقي</li>
+            </ul>
+        </div>
+
+        <!-- Upcoming Sections -->
+        <div class="warning-box">
+            <h4>🕒 أقسام قادمة - متوفرة من 1 يناير 2026</h4>
+        </div>
+
+        <div class="printer-info upcoming">
+            <div class="printer-title">
+                <span class="printer-icon">🕒</span>
+                قسم ابتدائي بنات (قادمة)
+            </div>
+            <div class="printer-details">📍 <strong>الموقع:</strong> مبنى الابتدائي بنات - الدور الأرضي</div>
+            <div class="printer-details"><strong>⏰ تاريخ التوفر:</strong> 1-1-2026</div>
+            <ul class="feature-list">
+                <li>✓ طباعة مشتركة عبر الشبكة المحلية</li>
+                <li>✓ منفذ USB للطباعة المباشرة</li>
+                <li>✓ خدمة التصوير والنسخ الورقي</li>
+            </ul>
+        </div>
+
+        <div class="printer-info upcoming">
+            <div class="printer-title">
+                <span class="printer-icon">🕒</span>
+                قسم ابتدائي الفلاح بنين (قادمة)
+            </div>
+            <div class="printer-details">📍 <strong>الموقع:</strong> مبنى الابتدائي بنين - الدور الأرضي</div>
+            <div class="printer-details"><strong>⏰ تاريخ التوفر:</strong> 1-1-2026</div>
+            <ul class="feature-list">
+                <li>✓ طباعة مشتركة عبر الشبكة المحلية</li>
+                <li>✓ منفذ USB للطباعة المباشرة</li>
+                <li>✓ خدمة التصوير والنسخ الورقي</li>
+            </ul>
+        </div>
+
+        <!-- Branch Al-Rahab -->
+        <div class="section-title">🏢 فرع الرحاب (4 طابعات)</div>
+
+        <div class="printer-info">
+            <div class="printer-title">
+                <span class="printer-icon">🖨️</span>
+                قسم ابتدائي بنين
+            </div>
+            <div class="printer-details">📍 <strong>الموقع:</strong> مبنى الابتدائي بنين - الدور الأرضي</div>
+            <ul class="feature-list">
+                <li>✓ طباعة مشتركة عبر الشبكة المحلية</li>
+                <li>✓ منفذ USB للطباعة المباشرة</li>
+                <li>✓ خدمة التصوير والنسخ الورقي</li>
+            </ul>
+        </div>
+
+        <div class="printer-info">
+            <div class="printer-title">
+                <span class="printer-icon">🖨️</span>
+                قسم متوسط بنين
+            </div>
+            <div class="printer-details">📍 <strong>الموقع:</strong> مبنى المتوسط بنين - الدور الأرضي</div>
+            <ul class="feature-list">
+                <li>✓ طباعة مشتركة عبر الشبكة المحلية</li>
+                <li>✓ منفذ USB للطباعة المباشرة</li>
+                <li>✓ خدمة التصوير والنسخ الورقي</li>
+            </ul>
+        </div>
+
+        <div class="printer-info">
+            <div class="printer-title">
+                <span class="printer-icon">🖨️</span>
+                قسم ثانوي بنين
+            </div>
+            <div class="printer-details">📍 <strong>الموقع:</strong> مبنى الثانوي بنين - الدور الأرضي</div>
+            <ul class="feature-list">
+                <li>✓ طباعة مشتركة عبر الشبكة المحلية</li>
+                <li>✓ منفذ USB للطباعة المباشرة</li>
+                <li>✓ خدمة التصوير والنسخ الورقي</li>
+            </ul>
+        </div>
+
+        <div class="printer-info color">
+            <div class="printer-title">
+                <span class="printer-icon">🎨</span>
+                قسم متوسط بنين (طابعة ألوان)
+            </div>
+            <div class="printer-details">📍 <strong>الموقع:</strong> مبنى المتوسط بنين - قاعة المعلمين</div>
+            <ul class="feature-list">
+                <li>✓ طباعة ملونة عبر الشبكة المحلية</li>
+                <li>✓ منفذ USB للطباعة المباشرة</li>
+                <li>✓ خدمة التصوير والنسخ الملون</li>
+            </ul>
+        </div>
+
+        <!-- Instructions -->
+        <div class="info-box">
+            <h3>📋 إرشادات الاستخدام</h3>
+            <ol>
+                <li><strong>الطباعة عبر الشبكة:</strong> يمكن لجميع المنسوبين في القسم المحدد الطباعة من أجهزتهم مباشرة عبر الشبكة المحلية</li>
+                <li><strong>الطباعة المباشرة (USB):</strong> يمكن توصيل ذاكرة USB والطباعة مباشرة من الآلة دون الحاجة لجهاز كمبيوتر</li>
+                <li><strong>خدمة التصوير:</strong> جميع الآلات مجهزة لخدمة التصوير والنسخ الورقي</li>
+                <li><strong>الطابعات الملونة (3 طابعات):</strong> متوفرة في متوسط بنين فرع الفلاح، متوسط بنات فرع الفلاح، ومتوسط بنين فرع الرحاب</li>
+                <li><strong>إجمالي الطابعات:</strong> 11 طابعة مركزية (8 طابعات عادية + 3 طابعات ملونة)</li>
+                <li><strong>الأقسام القادمة:</strong> قسم ابتدائي بنات وقسم ابتدائي الفلاح بنين ستكون متوفرة اعتباراً من 1-1-2026</li>
+                <li><strong>الدعم الفني:</strong> في حال وجود أي استفسارات أو مشاكل تقنية، يرجى التواصل مع قسم تقنية المعلومات</li>
+                <li><strong>الصيانة:</strong> يتم صيانة جميع الأجهزة بشكل دوري لضمان جودة الخدمة المستمرة</li>
+            </ol>
+        </div>
+
+        <!-- How to Install and Print -->
+        <div class="info-box" style="background-color: #f0f8ff; border-color: #4a90e2;">
+            <h3 style="color: #2c5aa0;">🖥️ طريقة تعريف الطابعة على جهازك</h3>
+            
+            <h4 style="color: #2c5aa0; margin-top: 20px;">📌 للأجهزة العاملة بنظام Windows:</h4>
+            <ol style="line-height: 2;">
+                <li><strong>الطريقة الأولى - تعريف تلقائي:</strong>
+                    <ul style="margin-top: 5px;">
+                        <li>افتح <strong>الإعدادات (Settings)</strong> من قائمة ابدأ</li>
+                        <li>اختر <strong>الأجهزة (Devices)</strong> ثم <strong>الطابعات والماسحات الضوئية (Printers & Scanners)</strong></li>
+                        <li>اضغط على <strong>إضافة طابعة أو ماسح ضوئي (Add a printer or scanner)</strong></li>
+                        <li>انتظر حتى يظهر اسم الطابعة في القائمة، ثم اضغط عليها</li>
+                        <li>اضغط <strong>إضافة جهاز (Add device)</strong></li>
+                        <li>سيتم تثبيت التعريف تلقائياً</li>
+                    </ul>
+                </li>
+                <li style="margin-top: 15px;"><strong>الطريقة الثانية - تعريف يدوي (إذا لم تظهر الطابعة):</strong>
+                    <ul style="margin-top: 5px;">
+                        <li>افتح <strong>لوحة التحكم (Control Panel)</strong></li>
+                        <li>اختر <strong>الأجهزة والطابعات (Devices and Printers)</strong></li>
+                        <li>اضغط على <strong>إضافة طابعة (Add a printer)</strong></li>
+                        <li>اختر <strong>إضافة طابعة شبكية (Add a network printer)</strong></li>
+                        <li>ابحث عن اسم الطابعة أو أدخل عنوان IP الخاص بها</li>
+                        <li>اتبع التعليمات حتى تكتمل العملية</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h4 style="color: #2c5aa0; margin-top: 25px;">📌 للأجهزة العاملة بنظام Mac:</h4>
+            <ol style="line-height: 2;">
+                <li>افتح <strong>تفضيلات النظام (System Preferences)</strong></li>
+                <li>اختر <strong>الطابعات والماسحات الضوئية (Printers & Scanners)</strong></li>
+                <li>اضغط على علامة <strong>+</strong> (زائد) لإضافة طابعة جديدة</li>
+                <li>اختر الطابعة من القائمة المتاحة</li>
+                <li>اضغط <strong>إضافة (Add)</strong></li>
+                <li>سيتم تحميل التعريف تلقائياً</li>
+            </ol>
+
+            <div class="warning-box" style="margin-top: 20px; background-color: #e8f5e9; border-right-color: #4caf50;">
+                <h4 style="color: #2e7d32;">💡 نصيحة مهمة:</h4>
+                <p style="margin: 5px 0; color: #333;">تأكد من أن جهازك متصل بشبكة المدارس المحلية قبل البدء في عملية التعريف</p>
+            </div>
+        </div>
+
+        <!-- How to Print -->
+        <div class="info-box" style="background-color: #fff9f0; border-color: #ff9800;">
+            <h3 style="color: #f57c00;">🖨️ طريقة الطباعة</h3>
+            
+            <h4 style="color: #f57c00; margin-top: 20px;">📌 الطباعة عبر الشبكة:</h4>
+            <ol style="line-height: 2;">
+                <li><strong>من أي برنامج (Word، Excel، PDF، إلخ):</strong>
+                    <ul style="margin-top: 5px;">
+                        <li>افتح الملف المراد طباعته</li>
+                        <li>اضغط <strong>Ctrl + P</strong> أو اختر <strong>طباعة (Print)</strong> من قائمة ملف</li>
+                        <li>اختر اسم الطابعة المركزية الخاصة بقسمك من القائمة</li>
+                        <li>حدد عدد النسخ والإعدادات المطلوبة (ألوان، أبيض وأسود، حجم الورق)</li>
+                        <li>اضغط <strong>طباعة (Print)</strong></li>
+                        <li>توجه إلى الطابعة لاستلام المطبوعات</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h4 style="color: #f57c00; margin-top: 25px;">📌 الطباعة عبر USB مباشرة:</h4>
+            <ol style="line-height: 2;">
+                <li>احفظ الملف المراد طباعته على <strong>ذاكرة USB</strong></li>
+                <li>تأكد من أن الملف بصيغة مدعومة (PDF, Word, Excel, JPG, PNG)</li>
+                <li>توجه إلى الطابعة المركزية في قسمك</li>
+                <li>أدخل ذاكرة USB في منفذ USB الموجود في الطابعة</li>
+                <li>من شاشة الطابعة، اختر <strong>طباعة من USB</strong></li>
+                <li>تصفح الملفات واختر الملف المطلوب</li>
+                <li>حدد عدد النسخ والإعدادات</li>
+                <li>اضغط <strong>ابدأ (Start)</strong> أو <strong>طباعة (Print)</strong></li>
+                <li>انتظر حتى تكتمل الطباعة، ثم أخرج ذاكرة USB</li>
+            </ol>
+
+            <h4 style="color: #f57c00; margin-top: 25px;">📌 التصوير والنسخ الورقي:</h4>
+            <ol style="line-height: 2;">
+                <li>ضع الورقة المراد تصويرها على <strong>الزجاج الماسح</strong> أو في <strong>وحدة التغذية التلقائية</strong></li>
+                <li>من شاشة الطابعة، اختر <strong>تصوير (Copy)</strong></li>
+                <li>حدد عدد النسخ المطلوبة</li>
+                <li>اختر الإعدادات (ألوان/أبيض وأسود، حجم الورق، جودة الطباعة)</li>
+                <li>اضغط <strong>ابدأ (Start)</strong></li>
+                <li>استلم النسخ المطبوعة</li>
+            </ol>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="info-box" style="background-color: #ffebee; border-color: #e57373;">
+            <h3 style="color: #c62828;">⚙️ حل المشاكل الشائعة</h3>
+            <ol style="line-height: 2;">
+                <li><strong>المشكلة: الطابعة لا تظهر في القائمة</strong>
+                    <ul style="margin-top: 5px;">
+                        <li>✓ تأكد من اتصالك بشبكة المدارس</li>
+                        <li>✓ تحقق من تشغيل الطابعة</li>
+                        <li>✓ أعد تشغيل جهازك وحاول مرة أخرى</li>
+                        <li>✓ تواصل مع الدعم الفني</li>
+                    </ul>
+                </li>
+                <li style="margin-top: 15px;"><strong>المشكلة: الطباعة لا تعمل رغم إرسال الأمر</strong>
+                    <ul style="margin-top: 5px;">
+                        <li>✓ تحقق من وجود ورق في الطابعة</li>
+                        <li>✓ تأكد من عدم وجود انحشار ورق</li>
+                        <li>✓ راجع قائمة الطباعة على جهازك وألغِ الأوامر المعلقة</li>
+                        <li>✓ تواصل مع الدعم الفني إذا استمرت المشكلة</li>
+                    </ul>
+                </li>
+                <li style="margin-top: 15px;"><strong>المشكلة: جودة الطباعة ضعيفة</strong>
+                    <ul style="margin-top: 5px;">
+                        <li>✓ قد يكون الحبر منخفضاً - أبلغ الدعم الفني</li>
+                        <li>✓ جرب زيادة جودة الطباعة من الإعدادات</li>
+                        <li>✓ نظف رأس الطباعة من إعدادات الطابعة</li>
+                    </ul>
+                </li>
+                <li style="margin-top: 15px;"><strong>لأي مشكلة أخرى:</strong>
+                    <ul style="margin-top: 5px;">
+                        <li>📞 اتصل بقسم تقنية المعلومات - داخلي 100</li>
+                        <li>💬 أو قدم تذكرة دعم فني عبر نظام الطلبات</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Important Notes -->
+        <div class="warning-box">
+            <h4>⚠️ ملاحظات مهمة:</h4>
+            <ul style="margin: 10px 0; padding-right: 20px;">
+                <li>جميع الطابعات من نوع مستأجر (Rental) مع صيانة دورية</li>
+                <li>يُرجى الحفاظ على الأجهزة وعدم العبث بإعداداتها</li>
+                <li>الطباعة الملونة محدودة للاستخدام الضروري فقط</li>
+                <li>يُمنع طباعة المواد الشخصية أو غير المتعلقة بالعمل</li>
+            </ul>
+        </div>
+
+        <!-- Signature -->
+        <div class="signature">
+            <p>نأمل أن تساهم هذه الخدمة في تسهيل العمليات اليومية وتحسين كفاءة العمل لجميع المنسوبين.</p>
+            <p>لأي استفسارات أو ملاحظات، يسعدنا تواصلكم معنا.</p>
+            <p style="margin-top: 20px;"><strong>مع خالص التحية والتقدير،</strong></p>
+            <p><strong>محمد صلاح</strong><br>
+            <strong>مدير الأنظمة وتقنية المعلومات</strong><br>
+            مدارس الفيصلية الأهلية<br>
+            جدة - المملكة العربية السعودية</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>📧 للتواصل: قسم تقنية المعلومات</p>
+            <p>📱 للدعم الفني: داخلي 100</p>
+            <p style="margin-top: 10px;">تم إعداد هذه الخريطة في: ديسمبر 2025</p>
         </div>
     </div>
-
-    <script>
-        const slides = [
-            {
-                title: "التحليل المالي الشامل",
-                subtitle: "مانشستر يونايتد",
-                content: `<img src="/home/ubuntu/upload/search_images/9FzzOdlIj3PG.png" class="logo-img" alt="Man Utd Logo">
-                          <p style="font-size: 1.2em; color: #999; margin-top: 30px;">دراسة تحليلية شاملة للأداء المالي (2020-2024)</p>
-                          <p style="font-size: 1em; color: #bbb; margin-top: 20px;">تقرير أكاديمي متخصص</p>`
-            },
-            {
-                title: "الملخص التنفيذي",
-                subtitle: "نظرة عامة على الأداء المالي",
-                content: `<ul>
-                    <li>إيرادات سنوية تتجاوز 600 مليون جنيه إسترليني</li>
-                    <li>علامة تجارية عالمية قيمتها تفوق 6 مليارات دولار</li>
-                    <li>تحديات هيكلية في إدارة التكاليف والديون</li>
-                    <li>فرص نمو كبيرة في القطاع الرقمي والتجاري</li>
-                </ul>`
-            },
-            {
-                title: "الأداء المالي",
-                subtitle: "المؤشرات الرئيسية",
-                content: `<div class="slide-stats">
-                    <div class="stat-box">
-                        <div class="stat-number">€650M</div>
-                        <div class="stat-label">الإيرادات السنوية</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">€500M</div>
-                        <div class="stat-label">تكاليف الرواتب</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">€600M</div>
-                        <div class="stat-label">إجمالي الديون</div>
-                    </div>
-                </div>`
-            },
-            {
-                title: "نقاط القوة",
-                subtitle: "المميزات التنافسية",
-                content: `<ul>
-                    <li>علامة تجارية قوية وموثوقة عالمياً</li>
-                    <li>قاعدة جماهيرية ضخمة وموالية</li>
-                    <li>إيرادات تجارية مستقرة ومتنامية</li>
-                    <li>بنية تحتية حديثة وملعب تاريخي</li>
-                </ul>`
-            },
-            {
-                title: "نقاط الضعف",
-                subtitle: "التحديات الرئيسية",
-                content: `<ul>
-                    <li>عبء ديون ثقيل يستنزف السيولة</li>
-                    <li>هيكل تكاليف غير فعال</li>
-                    <li>أداء رياضية متذبذبة</li>
-                    <li>نموذج إدارة يحتاج إلى تطوير</li>
-                </ul>`
-            },
-            {
-                title: "الفرص",
-                subtitle: "مجالات النمو المستقبلي",
-                content: `<ul>
-                    <li>التوسع في السوق الرقمية والبث المباشر</li>
-                    <li>زيادة الشراكات التجارية العالمية</li>
-                    <li>تطوير الملعب والمرافق الحديثة</li>
-                    <li>استثمار الأكاديمية وتطوير المواهب</li>
-                </ul>`
-            },
-            {
-                title: "التهديدات",
-                subtitle: "المخاطر الخارجية",
-                content: `<ul>
-                    <li>المنافسة من أندية مدعومة من دول</li>
-                    <li>التشريعات المالية الصارمة</li>
-                    <li>تقلبات السوق الاقتصادية</li>
-                    <li>مخاطر الأداء الرياضي المتدني</li>
-                </ul>`
-            },
-            {
-                title: "التوصيات",
-                subtitle: "خطط التحسين",
-                content: `<ul>
-                    <li>إعادة هيكلة الديون وتحسين شروطها</li>
-                    <li>فرض سقف صارم للرواتب</li>
-                    <li>تطوير البنية التحتية الرقمية</li>
-                    <li>تعيين إدارة مستقلة وفعالة</li>
-                </ul>`
-            },
-            {
-                title: "خطة التنفيذ",
-                subtitle: "المراحل الزمنية",
-                content: `<div class="slide-stats">
-                    <div class="stat-box">
-                        <div class="stat-number">0-12</div>
-                        <div class="stat-label">الاستقرار المالي</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">1-3</div>
-                        <div class="stat-label">التحسين التشغيلي</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">3-5+</div>
-                        <div class="stat-label">التحول الاستراتيجي</div>
-                    </div>
-                </div>`
-            },
-            {
-                title: "الخاتمة",
-                subtitle: "الرؤية المستقبلية",
-                content: `<p style="font-size: 1.3em; color: #667eea; font-weight: 600; margin-bottom: 30px;">
-                    "الاستدامة المالية الحقيقية تتطلب التوازن بين النجاح التجاري والكفاءة التشغيلية"
-                </p>
-                <p style="font-size: 1.1em; color: #666;">
-                    مانشستر يونايتد يمتلك الموارد والإمكانيات لتحقيق النجاح المستدام<br>
-                    بشرط تطبيق الإصلاحات الضرورية والاستثمار الحكيم
-                </p>`
-            },
-            {
-                title: "شكراً لحسن الاستماع",
-                subtitle: "هل لديكم أي أسئلة؟",
-                content: `<i class="fas fa-question-circle" style="font-size: 4em; color: #667eea; margin-bottom: 30px;"></i>
-                         <p style="font-size: 1.2em; color: #666; margin-top: 30px;">نتطلع لآرائكم واستفساراتكم</p>`
-            }
-        ];
-
-        let currentSlide = 0;
-
-        function renderSlides() {
-            const container = document.getElementById('slidesContainer');
-            slides.forEach((slide, index) => {
-                const slideDiv = document.createElement('div');
-                slideDiv.className = `slide ${index === 0 ? 'active' : ''}`;
-                slideDiv.innerHTML = `
-                    <div class="slide-title">${slide.title}</div>
-                    <div class="slide-subtitle">${slide.subtitle}</div>
-                    <div class="slide-content">${slide.content}</div>
-                `;
-                container.appendChild(slideDiv);
-            });
-
-            document.getElementById('totalSlides').textContent = slides.length;
-        }
-
-        function showSlide(n) {
-            const allSlides = document.querySelectorAll('.slide');
-            
-            if (n >= slides.length) currentSlide = slides.length - 1;
-            if (n < 0) currentSlide = 0;
-
-            allSlides.forEach(slide => slide.classList.remove('active', 'prev'));
-            allSlides[currentSlide].classList.add('active');
-
-            document.getElementById('currentSlide').textContent = currentSlide + 1;
-            document.getElementById('slideTitle').textContent = slides[currentSlide].title;
-
-            document.getElementById('prevBtn').disabled = currentSlide === 0;
-            document.getElementById('nextBtn').disabled = currentSlide === slides.length - 1;
-        }
-
-        function nextSlide() {
-            currentSlide++;
-            showSlide(currentSlide);
-        }
-
-        function previousSlide() {
-            currentSlide--;
-            showSlide(currentSlide);
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
-            if (e.key === 'ArrowLeft') previousSlide();
-        });
-
-        // Initialize
-        renderSlides();
-        showSlide(0);
-    </script>
 </body>
 </html>
